@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layouts/master :: headelement}">
+
+</head>
+<style>
+    #toast-container > .toast-success {
+        background-color: #28a745 !important;
+        color: white !important;
+        font-weight: 500;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+</style>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"
+        th:replace="~{layouts/master :: navelement}"></nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav"
+            th:replace="~{layouts/master :: sidebarelement}">
+            <nav class="sb-sidenav accordion sb-sidenav-dark"
+                id="sidenavAccordion"></nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4 pt-2">
+                    <!-- Employee Information -->
+                    <div id="employeeInformation" class="card shadow-lg rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-3 text-primary">Employee Information</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <b>Employee ID:</b> <span th:text="${employeeDetails.id}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Full Name:</b> <span th:text="${employeeDetails.employeeFullname}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Gender:</b> <span th:text="${employeeDetails.employeeGender}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Email Address:</b> <span th:text="${employeeDetails.employeeEmailAddress}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Phone Number:</b> <span th:text="${employeeDetails.employeePhoneNumber}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Department:</b> <span th:text="${employeeDetails.department}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Job Role:</b> <span th:text="${employeeDetails.jobRole}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Salary:</b> <span th:text="${employeeDetails.salary}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Next of Kin Name:</b> <span th:text="${employeeDetails.nextOfKinName}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>Next of Kin Phone:</b> <span th:text="${employeeDetails.nextOfKinPhoneNumber}"></span>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <b>Address:</b> <span th:text="${employeeDetails.address}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Edit Employee Info -->
+                    <div id="editEmployeeInfo" class="card shadow rounded-4 mt-4">
+                        <div class="card-body p-4">
+                            <h5 class="text-primary mb-3">Edit Employee Information</h5>
+                            <form th:action="@{/updateEmployeeInformation}" method="post"
+                                class="row g-3">
+                                <input type="hidden" name="id" th:value="${employeeDetails.id}" />
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Employee ID</label> 
+                                    <input type="text" name="id" th:value="${employeeDetails.id}" class="form-control" readonly />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name</label> 
+                                    <input type="text" name="Employee_Fullname" th:value="${employeeDetails.employeeFullname}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Gender</label> 
+                                    <select name="Employee_Gender" class="form-control">
+                                        <option value="Male" th:selected="${employeeDetails.employeeGender == 'Male'}">Male</option>
+                                        <option value="Female" th:selected="${employeeDetails.employeeGender == 'Female'}">Female</option>
+                                        <option value="Other" th:selected="${employeeDetails.employeeGender == 'Other'}">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Email Address</label> 
+                                    <input type="email" name="Employee_Email_Address" th:value="${employeeDetails.employeeEmailAddress}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone Number</label> 
+                                    <input type="text" name="Employee_Phone_Number" th:value="${employeeDetails.employeePhoneNumber}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Department</label> 
+                                    <input type="text" name="Department" th:value="${employeeDetails.department}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Job Role</label> 
+                                    <input type="text" name="Job_Role" th:value="${employeeDetails.jobRole}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Salary</label> 
+                                    <input type="number" step="0.01" name="Salary" th:value="${employeeDetails.salary}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Next of Kin Name</label> 
+                                    <input type="text" name="Next_Of_Kin_Name" th:value="${employeeDetails.nextOfKinName}" class="form-control" />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Next of Kin Phone</label> 
+                                    <input type="text" name="Next_Of_Kin_Phone_Number" th:value="${employeeDetails.nextOfKinPhoneNumber}" class="form-control" />
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Address</label> 
+                                    <textarea name="Address" class="form-control" rows="3" th:text="${employeeDetails.address}"></textarea>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto"
+                th:replace="~{layouts/master :: footerelement}">
+                <div class="container-fluid px-4">
+                    <div
+                        class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Employee Management System 2023</div>
+                        <div>
+                            <a href="#">Privacy Policy</a> &middot; <a href="#">Terms
+                                &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        toastr.options = {
+            "closeButton" : true,
+            "debug" : false,
+            "newestOnTop" : true,
+            "progressBar" : true,
+            "positionClass" : "toast-top-right",
+            "preventDuplicates" : true,
+            "onclick" : null,
+            "showDuration" : "300",
+            "hideDuration" : "1000",
+            "timeOut" : "5000",
+            "extendedTimeOut" : "1000",
+            "showEasing" : "swing",
+            "hideEasing" : "linear",
+            "showMethod" : "fadeIn",
+            "hideMethod" : "fadeOut"
+        }
+    </script>
+    <script>
+        toastr.options = {
+            "closeButton" : true,
+            "progressBar" : true,
+            "positionClass" : "toast-bottom-right",
+            "timeOut" : "5000"
+        }
+    </script>
+
+    <script th:if="${successMessage != null}">
+        $(document).ready(function() {
+            toastr.success('[[${successMessage}]]');
+        });
+    </script>
+
+    <script th:if="${errorMessage != null}">
+        $(document).ready(function() {
+            toastr.error('[[${errorMessage}]]');
+        });
+    </script>
+
+    <!-- ✅ Bootstrap + JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/assets/demo/chart-area-demo.js}"></script>
+    <script th:src="@{/assets/demo/chart-bar-demo.js}"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/datatables-simple-demo.js}"></script>
+</body>
+</html>

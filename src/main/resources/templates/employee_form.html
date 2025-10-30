@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layouts/master :: headelement}">
+
+</head>
+<style>
+    #toast-container > .toast-success {
+        background-color: #28a745 !important;
+        color: white !important;
+        font-weight: 500;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+</style>
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"
+		th:replace="~{layouts/master :: navelement}"></nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav"
+			th:replace="~{layouts/master :: sidebarelement}">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion"></nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1>Employee Form</h1>
+				</div>
+				<form class="mx-3" th:action="@{/new_employee}" method="post">
+					<div class="mb-3">
+						<label for="employeeFullname" class="form-label">Employee
+							Full Name</label> <input type="text" class="form-control"
+							id="employeeFullname" name="employeeFullname"
+							th:value="${employeeFullname}"
+							placeholder="Enter employee full name" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="employeeGender" class="form-label">Employee
+							Gender</label> <select class="form-control" id="employeeGender"
+							name="employeeGender" required>
+							<option value="">Select Gender</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+
+					<div class="mb-3">
+						<label for="employeeEmailAddress" class="form-label">Employee
+							Email Address</label> <input type="email" class="form-control"
+							id="employeeEmailAddress" name="employeeEmailAddress"
+							th:value="${employeeEmailAddress}"
+							placeholder="Enter employee email address" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="employeePhoneNumber" class="form-label">Employee
+							Phone Number</label> <input type="tel" class="form-control"
+							id="employeePhoneNumber" name="employeePhoneNumber"
+							th:value="${employeePhoneNumber}"
+							placeholder="Enter employee phone number" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="department" class="form-label">Department</label> <input
+							type="text" class="form-control" id="department"
+							name="department" th:value="${department}"
+							placeholder="Enter department" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="jobRole" class="form-label">Job Role</label> <input
+							type="text" class="form-control" id="jobRole" name="jobRole"
+							th:value="${jobRole}" placeholder="Enter job role" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="salary" class="form-label">Salary</label> <input
+							type="number" class="form-control" id="salary" name="salary"
+							th:value="${salary}" placeholder="Enter salary" min="0"
+							step="0.01" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="nextOfKinName" class="form-label">Next of Kin
+							Name</label> <input type="text" class="form-control" id="nextOfKinName"
+							name="nextOfKinName" th:value="${nextOfKinName}"
+							placeholder="Enter next of kin name" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="nextOfKinPhoneNumber" class="form-label">Next
+							of Kin Phone Number</label> <input type="tel" class="form-control"
+							id="nextOfKinPhoneNumber" name="nextOfKinPhoneNumber"
+							th:value="${nextOfKinPhoneNumber}"
+							placeholder="Enter next of kin phone number" required>
+					</div>
+
+					<div class="mb-3">
+						<label for="address" class="form-label">Address</label>
+						<textarea class="form-control" id="address" name="address"
+							th:text="${address}" rows="3" placeholder="Enter address"
+							required></textarea>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+
+			</main>
+			<footer class="py-4 bg-light mt-auto"
+				th:replace="~{layouts/master :: footerelement}">
+				<div class="container-fluid px-4">
+					<div
+						class="d-flex align-items-center justify-content-between small">
+						<div class="text-muted">Copyright &copy; Employee Management
+							System 2023</div>
+						<div>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
+								&amp; Conditions</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<script>
+		toastr.options = {
+			"closeButton" : true,
+			"debug" : false,
+			"newestOnTop" : true,
+			"progressBar" : true,
+			"positionClass" : "toast-top-right",
+			"preventDuplicates" : true,
+			"onclick" : null,
+			"showDuration" : "300",
+			"hideDuration" : "1000",
+			"timeOut" : "5000",
+			"extendedTimeOut" : "1000",
+			"showEasing" : "swing",
+			"hideEasing" : "linear",
+			"showMethod" : "fadeIn",
+			"hideMethod" : "fadeOut"
+		}
+	</script>
+	<script>
+		toastr.options = {
+			"closeButton" : true,
+			"progressBar" : true,
+			"positionClass" : "toast-bottom-right",
+			"timeOut" : "5000"
+		}
+	</script>
+
+	<script th:if="${successMessage != null}">
+		$(document).ready(function() {
+			toastr.success('[[${successMessage}]]');
+		});
+	</script>
+
+	<script th:if="${errorMessage != null}">
+		$(document).ready(function() {
+			toastr.error('[[${errorMessage}]]');
+		});
+	</script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="assets/demo/chart-area-demo.js"></script>
+	<script src="assets/demo/chart-bar-demo.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/datatables-simple-demo.js"></script>
+</body>
+</html>
